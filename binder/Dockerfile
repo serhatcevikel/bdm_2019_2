@@ -4,6 +4,8 @@
 FROM gesiscss/orc-binder-serhatcevikel-2dbdm-5f2019-5f2-1e05af:d037fbbf133901c2cffb3746ac272f68351cef33
 LABEL maintainer="serhatcevikel@yahoo.com"
 
+ENV SHELL /bin/bash
+
 USER root
 
 RUN \
@@ -114,3 +116,6 @@ RUN python3 -m bash_kernel.install; \
     \
     # remove files
     rm -r ${HOME}/binder;
+
+USER ${NB_USER}
+WORKDIR ${HOME}
