@@ -71,7 +71,7 @@ USER root
 
 RUN \
     # own home directory by user
-    chown -R ${NB_UID} ${HOME}
+    chown -R ${NB_UID} ${HOME};
 
 USER ${NB_USER}
 
