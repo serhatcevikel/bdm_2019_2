@@ -50,7 +50,7 @@ RUN \
     
     # install q 
     #qdeblink=$(lynx -listonly -nonumbers -dump "https://github.com/harelba/q/releases" | grep -P "\.deb$" | head -1); \
-    qdeblink="https://github.com/harelba/packages-for-q/raw/master/deb/q-text-as-data_1.7.1-2_all.deb"
+    qdeblink="https://github.com/harelba/packages-for-q/raw/master/deb/q-text-as-data_1.7.1-2_all.deb"; \
     qdebfile=${qdeblink##*/}; \
 
     wget -P ${HOME} $qdeblink && \
