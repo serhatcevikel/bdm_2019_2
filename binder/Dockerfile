@@ -22,6 +22,6 @@ RUN \
     find $comtradedir/2010 -mindepth 1 | \
     parallel -k -j0 "basenm=\$(basename {}); gunzip -c {} > ${comtradedir}/2010e/\${basenm%.gz};";\
 
-    Rscript <(echo "IRkernel::installspec(user = FALSE)");
+    Rscript -e "IRkernel::installspec(user = FALSE)";
 
 WORKDIR ${HOME}
