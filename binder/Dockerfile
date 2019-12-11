@@ -1,8 +1,7 @@
 # install mongo package
 # pip packages, node, tldr, q, beaker
 # jupyter, tldr cache, .bashrc, pgcli, expect for parallel
-FROM gesiscss/orc-binder-serhatcevikel-2dbdm-5f2019-5f2-1e05af:c4b7d51127c0e91e192c6fd1627840011e43179a
-
+FROM gesiscss/orc-binder-serhatcevikel-2dbdm-5f2019-5f2-1e05af:d037fbbf133901c2cffb3746ac272f68351cef33
 LABEL maintainer="serhatcevikel@yahoo.com"
 
 USER root
@@ -40,30 +39,25 @@ RUN \
         RISE \
         sos \
         sos-notebook; \
-
+    \
     # install node
     curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash - && \
         apt install -y nodejs build-essential; \
-
+    \
     # tldr
     npm install tldr -g; \
-    
+    \
     # install q 
     #qdeblink=$(lynx -listonly -nonumbers -dump "https://github.com/harelba/q/releases" | grep -P "\.deb$" | head -1); \
     qdeblink="https://github.com/harelba/packages-for-q/raw/master/deb/q-text-as-data_1.7.1-2_all.deb"; \
     qdebfile=${qdeblink##*/}; \
-
+    \
     wget -P ${HOME} $qdeblink && \
     dpkg -i ${HOME}/$qdebfile && \
     rm ${HOME}/$qdebfile; \
-
+    \
     ## install beaker kernels
     beakerx install;
-
-# create jovyan user
-ENV NB_USER jovyan
-ENV NB_UID 1000
-ENV HOME /home/${NB_USER}
 
 # Make sure the contents of our repo are in ${HOME}
 COPY ./binder ${HOME}/binder
@@ -75,10 +69,6 @@ RUN \
     chown -R ${NB_UID} ${HOME};
 
 USER ${NB_USER}
-
-RUN ls ${HOME};
-
-RUN ls ${HOME}/binder;
 
 # nbpresent
 RUN python3 -m bash_kernel.install; \
@@ -100,27 +90,27 @@ RUN python3 -m bash_kernel.install; \
     jupyter-nbextension enable autoscroll/main  --user; \
     jupyter-nbextension enable rubberband/main --user; \
     jupyter-nbextension enable exercise2/main --user; \
-    cp $HOME/binder/common.json $HOME/.jupyter/nbconfig/common.json; \
-
+    cp ${HOME}/binder/common.json ${HOME}/.jupyter/nbconfig/common.json; \
+    \
     # update tldr cache
     tldr -u; \
-    
+    \
     # screenrc
     printf "hardstatus on\nhardstatus alwayslastline\nhardstatus string \"%%w\"\n" >> ${HOME}/.screenrc; \
-    
+    \
     # bashrc
-    echo "export JAVA_HOME=/usr/lib/jvm/default-java" >> $HOME/.bashrc; \
-    echo "export LC_ALL=C.UTF-8" >> $HOME/.bashrc; \
-    echo "export LANG=C.UTF-8" >> $HOME/.bashrc; \
-    echo "export EDITOR=vim" >> $HOME/.bashrc; \
+    #echo "export JAVA_HOME=/usr/lib/jvm/default-java" >> $HOME/.bashrc; \
+    echo "export LC_ALL=C.UTF-8" >> ${HOME}/.bashrc; \
+    echo "export LANG=C.UTF-8" >> ${HOME}/.bashrc; \
+    echo "export EDITOR=vim" >> ${HOME}/.bashrc; \
     #echo "[[ \$TERM != \"screen\" ]] && exec screen -q" >> ${HOME}/.bashrc; \
-
+    \
     ## pgcli default options
-    mkdir -p $HOME/.config/pgcli; \
-    cp $HOME/binder/pgcli_config $HOME/.config/pgcli/config; \
-
+    mkdir -p ${HOME}/.config/pgcli; \
+    cp ${HOME}/binder/pgcli_config ${HOME}/.config/pgcli/config; \
+    \
     # run expect script for parallel
     expect ${HOME}/binder/expect_script; \
-    
+    \
     # remove files
     rm -r ${HOME}/binder;
