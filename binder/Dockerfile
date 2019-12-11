@@ -1,7 +1,7 @@
 # install mongo package
 # pip packages, node, tldr, q, beaker
 # jupyter, tldr cache, .bashrc, pgcli, expect for parallel
-FROM gesiscss/orc-binder-serhatcevikel-2dbdm-5f2019-5f2-1e05af:1e72427e38c163ded97a222faeb3e677bbf494c4
+FROM gesiscss/orc-binder-serhatcevikel-2dbdm-5f2019-5f2-1e05af:c4b7d51127c0e91e192c6fd1627840011e43179a
 
 LABEL maintainer="serhatcevikel@yahoo.com"
 
