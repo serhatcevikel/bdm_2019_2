@@ -8,7 +8,10 @@ RUN \
     # install xidel
     wget "https://netcologne.dl.sourceforge.net/project/videlibri/Xidel/Xidel%200.9.8/xidel_0.9.8-1_amd64.deb" && \
     dpkg -i xidel_0.9.8-1_amd64.deb && \
-    rm xidel_0.9.8-1_amd64.deb;
+    rm xidel_0.9.8-1_amd64.deb;\
+    
+    # install IRkernel
+    Rscript -e "IRkernel::installspec(user = FALSE)";
 
 USER ${NB_USER}
 
@@ -21,7 +24,5 @@ RUN \
     
     find $comtradedir/2010 -mindepth 1 | \
     parallel -k -j0 "basenm=\$(basename {}); gunzip -c {} > ${comtradedir}/2010e/\${basenm%.gz};";\
-
-    Rscript -e "IRkernel::installspec(user = FALSE)";
 
 WORKDIR ${HOME}
