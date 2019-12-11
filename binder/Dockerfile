@@ -6,10 +6,12 @@ FROM debian:buster-20181112
 
 LABEL maintainer="serhatcevikel@yahoo.com"
 
+# environment variables
+ENV JAVA_HOME /usr/lib/jvm/default-java
+
 # create hadoop user
 ENV NB_USER hadoop
 ENV NB_UID 1001
-ENV HOME /home/${NB_USER}
 
 USER root
 RUN adduser --disabled-password \
@@ -79,24 +81,21 @@ RUN apt update && \
     unixodbc-dev \
     vim \
     wget; \
-
-    # java env variables 
-    echo "JAVA_HOME=/usr/lib/jvm/default-java" >> /etc/environment; \
-
+    \
     # screenrc configuration
     echo "startup_message off" >> /etc/screenrc; \
-
+    \
     # make hadoop sudoer with no password prompt
     echo "hadoop ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/hadoop; \
     # make jovyan sudoer with no password prompt
     echo "jovyan ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/jovyan; \
-
+    \
     # take care of sh symlink
     if [ -e /usr/bin/sh ]; \
     then \
         rm /usr/bin/sh; \
     fi; \
-
+    \
     ln -s /usr/bin/bash /usr/bin/sh; \
 
     
