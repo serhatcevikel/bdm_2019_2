@@ -23,6 +23,6 @@ RUN \
     mkdir -p $comtradedir/2010e; \
     
     find $comtradedir/2010 -mindepth 1 | \
-    parallel -k -j0 "basenm=\$(basename {}); gunzip -c {} > ${comtradedir}/2010e/\${basenm%.gz};";\
+    parallel -k -j0 "basenm=\$(basename {}); gunzip -c {} > ${comtradedir}/2010e/\${basenm%.gz};";
 
 WORKDIR ${HOME}
