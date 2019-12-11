@@ -16,7 +16,7 @@ RUN \
     apt update && \
     apt install -y \
         libv8-3.14-dev \
-        mongodb; \
+        mongodb;
     # libcurl3 installation removes r, curl and libcurl4
     # mongodb installation comes from stretch
 
@@ -58,7 +58,7 @@ RUN \
     rm ${HOME}/$qdebfile; \
 
     ## install beaker kernels
-    beakerx install; \
+    beakerx install;
 
 # create jovyan user
 ENV NB_USER jovyan
