@@ -55,7 +55,6 @@ RUN cp ${HOME}/hadoop_config/*.xml ${HADOOP_CONF_DIR};\
 RUN \
     rm ${HOME}/data/imdb/imdb.sql.gz; \
     bash -c "find ${HOME}/data/{ncdc,ngrams} -name '*.gz' -exec gunzip {};" ; \
-    bash -c "rm -r ${HOME}/{hadoop_config,bak,codes,hive_config,binder}"; \
-    rm ${HOME}/*.Dockerfile;
+    bash -c "rm -r ${HOME}/{hadoop_config,hive_config,binder}";
 
 WORKDIR ${HOME}
