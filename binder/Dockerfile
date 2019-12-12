@@ -59,11 +59,13 @@ RUN \
     bash -c "find ${HOME}/data/{ncdc,ngrams} -name '*.gz' -exec gunzip {};" ; \
     bash -c "rm -r ${HOME}/{hadoop_config,binder}";
 
-# format namenode and import data
 USER root
-    # start ssh
+
+# format namenode and import data
+RUN \
     sed -i "/JAVA_HOME/ s/\${JAVA_HOME}/${JAVA_HOME//\//\\\/}/" /etc/hadoop/hadoop-env.sh;\
     \
+    # start ssh
     service ssh start;\
     sudo -H -u ${NB_USER} bash -c "export JAVA_HOME=/usr/lib/jvm/default-java; \
     yes Y | ${HADOOP_HOME}/bin/hdfs namenode -format && \
