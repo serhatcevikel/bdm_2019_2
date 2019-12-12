@@ -12,7 +12,9 @@ ENV HADOOP_CONF_DIR /etc/hadoop
 ENV HADOOP_HOME ${HADOOP_PREFIX}
 ENV MULTIHOMED_NETWORK 1
 ENV USER root
-ENV PATH ${HADOOP_PREFIX}/bin:${HADOOP_PREFIX}/sbin:${PATH}
+ENV SQOOP_HOME /opt/sqoop
+ENV SQOOP_VERSION 1.4.7
+ENV PATH ${SQOOP_HOME}/bin:${HADOOP_PREFIX}/bin:${HADOOP_PREFIX}/sbin:${PATH}
 
 USER root
 
@@ -38,8 +40,8 @@ RUN sed -i '/^#PubkeyAuthentication/ s/^#//' /etc/ssh/sshd_config; \
     sed -i '/StrictHostKeyChecking/ s/ask/no/' /etc/ssh/ssh_config;\
     \
     # set permission and ownership
-    chown -R ${NB_UID} ${HADOOP_PREFIX} && \
-    chown -R ${NB_UID} /hadoop-data && \
+    chown -R ${NB_USER}:${NB_USER} ${HADOOP_PREFIX} && \
+    chown -R ${NB_USER}:${NB_USER} /hadoop-data && \
     chmod 755 /hadoop-data;
 
 USER ${NB_USER}
@@ -55,6 +57,30 @@ RUN cp ${HOME}/hadoop_config/*.xml ${HADOOP_CONF_DIR};\
 RUN \
     rm ${HOME}/data/imdb/imdb.sql.gz; \
     bash -c "find ${HOME}/data/{ncdc,ngrams} -name '*.gz' -exec gunzip {};" ; \
-    bash -c "rm -r ${HOME}/{hadoop_config,hive_config,binder}";
+    bash -c "rm -r ${HOME}/{hadoop_config,binder}";
+
+# format namenode and import data
+USER root
+    # start ssh
+    sed -i "/JAVA_HOME/ s/\${JAVA_HOME}/${JAVA_HOME//\//\\\/}/" /etc/hadoop/hadoop-env.sh;\
+    \
+    service ssh start;\
+    sudo -H -u ${NB_USER} bash -c "export JAVA_HOME=/usr/lib/jvm/default-java; \
+    yes Y | ${HADOOP_HOME}/bin/hdfs namenode -format && \
+    ${HADOOP_HOME}/sbin/start-dfs.sh && \
+    ${HADOOP_HOME}/bin/hdfs dfs -put $HOME/data/ / && \
+    ${HADOOP_HOME}/sbin/stop-dfs.sh";\
+    service ssh stop;
+
+RUN mkdir -p ${SQOOP_HOME} && \
+    chown -R ${NB_USER}:${NB_USER} ${SQOOP_HOME};
+
+USER ${NB_USER}
+RUN curl -o /tmp/sqoop-${SQOOP_VERSION}.bin__hadoop-2.6.0.tar.gz \
+    http://ftp.itu.edu.tr/Mirror/Apache/sqoop/${SQOOP_VERSION}/sqoop-${SQOOP_VERSION}.bin__hadoop-2.6.0.tar.gz && \
+    \
+    tar -xvf /tmp/sqoop-${SQOOP_VERSION}.bin__hadoop-2.6.0.tar.gz -C ${SQOOP_HOME} --strip-components=1 && \
+    rm /tmp/sqoop-${SQOOP_VERSION}.bin__hadoop-2.6.0.tar.gz && \
+    cp ${JAVA_HOME}/lib/postgresql-42.2.5.jar ${SQOOP_HOME}/lib;
 
 WORKDIR ${HOME}
