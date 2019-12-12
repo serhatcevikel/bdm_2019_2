@@ -33,3 +33,6 @@
         }
     }
 
+    # initiate IRkernel
+    IRkernel::installspec(user = FALSE)
+
