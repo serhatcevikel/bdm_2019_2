@@ -56,7 +56,7 @@ RUN cp ${HOME}/hadoop_config/*.xml ${HADOOP_CONF_DIR};\
 # extract data and remove unnecessary files
 RUN \
     rm ${HOME}/data/imdb/imdb.sql.gz; \
-    bash -c "find ${HOME}/data/{ncdc,ngrams} -name '*.gz' -exec gunzip {};" ; \
+    bash -c "find ${HOME}/data/{ncdc,ngrams} -name '*.gz' -exec gunzip {} \;" ; \
     bash -c "rm -r ${HOME}/{hadoop_config,binder}";
 
 USER root
@@ -83,6 +83,6 @@ RUN curl -o /tmp/sqoop-${SQOOP_VERSION}.bin__hadoop-2.6.0.tar.gz \
     \
     tar -xvf /tmp/sqoop-${SQOOP_VERSION}.bin__hadoop-2.6.0.tar.gz -C ${SQOOP_HOME} --strip-components=1 && \
     rm /tmp/sqoop-${SQOOP_VERSION}.bin__hadoop-2.6.0.tar.gz && \
-    cp ${JAVA_HOME}/lib/postgresql-42.2.5.jar ${SQOOP_HOME}/lib;
+    cp ${CLASSPATH} ${SQOOP_HOME}/lib;
 
 WORKDIR ${HOME}
