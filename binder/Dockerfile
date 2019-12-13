@@ -6,7 +6,7 @@ LABEL maintainer="serhatcevikel@yahoo.com"
 # create user
 ENV PIG_VERSION 0.17.0
 ENV PIG_HOME /opt/pig
-ENV HIVE_VERSION 2.3.4
+ENV HIVE_VERSION 2.3.6
 ENV HIVE_HOME /opt/hive
 ENV PATH $PIG_HOME/bin:$HIVE_HOME/bin:$PATH
 
