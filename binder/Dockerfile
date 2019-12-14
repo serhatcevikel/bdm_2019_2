@@ -25,7 +25,7 @@ RUN cp ${HOME}/hive_config/* $HIVE_HOME/conf/ && \
     ln -s $HIVE_HOME/lib/derby-10.10.2.0.jar $SQOOP_HOME/lib/derby-10.10.2.0.jar; \
     ln -s $HIVE_HOME/lib/hive-exec.jar $SQOOP_HOME/lib/hive-exec.jar; \
     \
-    bash -c "rm -r ${HOME}/{binder,hive_honfig}";
+    bash -c "rm -r ${HOME}/{binder,hive_config}";
 
 USER ${NB_USER}
 WORKDIR ${HOME}
