@@ -28,8 +28,17 @@ RUN cp ${HOME}/hive_config/* $HIVE_HOME/conf/ && \
     ln -s $HIVE_HOME/lib/derby-10.10.2.0.jar $SQOOP_HOME/lib/derby-10.10.2.0.jar; \
     ln -s $HIVE_HOME/lib/hive-exec-2.3.6.jar $SQOOP_HOME/lib/hive-exec-2.3.6.jar; \
     ln -s /opt/hadoop-2.9.2/share/hadoop/common/lib/slf4j-api-1.7.25.jar /opt/hive/lib/slf4j-api-1.7.25.jar; \
+    wget -P ${HOME}/data/ "http://pgfoundry.org/frs/download.php/527/world-1.0.tar.gz"; \
+    tar -xzvf ${HOME}/data/world-1.0.tar.gz; \
     \
     bash -c "rm -r ${HOME}/{binder,hive_config}";
+
+# start postgresql and create imdb database
+USER postgres
+RUN /usr/lib/postgresql/11/bin/pg_ctl start -D /etc/postgresql/11/main/ -m smart && \
+    createdb -U postgres world && \
+    psql -U postgres world < ${HOME}/dbsamples-0.1/world/world.sql && \
+    /usr/lib/postgresql/11/bin/pg_ctl stop -D /etc/postgresql/11/main/ -m smart;
 
 USER ${NB_USER}
 WORKDIR ${HOME}
