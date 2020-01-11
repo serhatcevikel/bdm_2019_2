@@ -1,6 +1,6 @@
 # quiltdata
 # postgres config
-FROM gesiscss/orc-binder-serhatcevikel-2dbdm-5f2019-5f2-1e05af:bf48693a402b8fa6b79147ac6f9a1f0bb267bbd3
+FROM gesiscss/binder-serhatcevikel-2dbdm-5f2019-5f2-1e05af:6fc5e73b94b194c9670f32e6cf734f2792138c98
 LABEL maintainer="serhatcevikel@yahoo.com"
 
 # environment variables
