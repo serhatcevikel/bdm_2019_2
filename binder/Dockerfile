@@ -1,6 +1,6 @@
 # postgresql, hadoop, hdfs, yarn and sqoop ready, data imported
 # install hive and pig
-FROM gesiscss/orc-binder-serhatcevikel-2dbdm-5f2019-5f2-1e05af:16dbdd6e19f0015712db7021805ac5f9a63ecf76
+FROM gesiscss/binder-serhatcevikel-2dbdm-5f2019-5f2-1e05af:39519f0d8b03fc711412ad61be1030800d8fb5ca
 LABEL maintainer="serhatcevikel@yahoo.com"
 
 # create user
@@ -18,7 +18,7 @@ RUN mkdir -p $PIG_HOME && \
 USER ${NB_USER}
 RUN curl -o /tmp/pig-${PIG_VERSION}.tar.gz \
     http://ftp.itu.edu.tr/Mirror/Apache/pig/pig-${PIG_VERSION}/pig-${PIG_VERSION}.tar.gz && \
-    
+    \
     tar -xvf /tmp/pig-${PIG_VERSION}.tar.gz -C ${PIG_HOME} --strip-components=1 && \
     rm /tmp/pig-${PIG_VERSION}.tar.gz;
 
@@ -30,7 +30,7 @@ RUN mkdir -p $HIVE_HOME && \
 USER ${NB_USER}
 RUN curl -o /tmp/apache-hive-${HIVE_VERSION}-bin.tar.gz \
     http://ftp.itu.edu.tr/Mirror/Apache/hive/hive-${HIVE_VERSION}/apache-hive-${HIVE_VERSION}-bin.tar.gz && \
-    
+    \
     tar -xvf /tmp/apache-hive-${HIVE_VERSION}-bin.tar.gz -C $HIVE_HOME --strip-components=1 && \
     rm /tmp/apache-hive-${HIVE_VERSION}-bin.tar.gz;
 
