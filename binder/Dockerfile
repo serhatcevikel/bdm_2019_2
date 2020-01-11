@@ -1,5 +1,5 @@
 # configure hive
-FROM gesiscss/orc-binder-serhatcevikel-2dbdm-5f2019-5f2-1e05af:bc93be85e47bb1b719989f9b07247f000ac07e83
+FROM gesiscss/binder-serhatcevikel-2dbdm-5f2019-5f2-1e05af:4712eec6fd3b981af37329be343c5f2d417d7084
 LABEL maintainer="serhatcevikel@yahoo.com"
 
 COPY --chown=jovyan:jovyan . ${HOME}
