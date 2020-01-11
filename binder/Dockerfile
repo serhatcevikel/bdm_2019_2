@@ -1,5 +1,5 @@
 # r packages
-FROM gesiscss/orc-binder-serhatcevikel-2dbdm-5f2019-5f2-1e05af:bf4d5846fc0ae09ae58e5c5b678ccd7179b63eb7
+FROM gesiscss/binder-serhatcevikel-2dbdm-5f2019-5f2-1e05af:aea2c9dc866aa56cae95822b96f761f577cf0fdf
 LABEL maintainer="serhatcevikel@yahoo.com"
 
 # Make sure the contents of our repo are in ${HOME}
