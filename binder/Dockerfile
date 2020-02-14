@@ -1,5 +1,5 @@
 # hadoop installation/configuration - base 1
-FROM gesiscss/binder-serhatcevikel-2dbdm-5f2019-5f2-1e05af:1def8231fbbd99d8b223d8925f9bdeadbf0e1cea
+FROM gesiscss/binder-serhatcevikel-2dbdm-5f2019-5f2-1e05af:70262e69ff80812e2bb5804732a97c85ca9f90b1
 LABEL maintainer="serhatcevikel@yahoo.com"
 
 COPY --chown=jovyan:jovyan . ${HOME}
