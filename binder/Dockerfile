@@ -1,6 +1,6 @@
 # postgresql, hadoop, hdfs, yarn and sqoop ready, data imported
 # install hive and pig
-FROM gesiscss/binder-serhatcevikel-2dbdm-5f2019-5f2-1e05af:39519f0d8b03fc711412ad61be1030800d8fb5ca
+FROM gesiscss/binder-serhatcevikel-2dbdm-5f2019-5f2-1e05af:561e85807bde4a2c4923e39e4c3e66a8ed704af6
 LABEL maintainer="serhatcevikel@yahoo.com"
 
 # create user
