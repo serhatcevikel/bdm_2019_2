@@ -1,5 +1,5 @@
 # nosql
-FROM gesiscss/binder-serhatcevikel-2dbdm-5f2019-5f2-1e05af:2141c4140eddfc2b5a5762e89809fda7df54966f
+FROM gesiscss/binder-serhatcevikel-2dbdm-5f2019-5f2-1e05af:a9ce6a8f35260a2b30bde6be6799e4140cf858fc
 LABEL maintainer="serhatcevikel@yahoo.com"
 
 USER root
