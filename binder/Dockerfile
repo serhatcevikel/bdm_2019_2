@@ -12,7 +12,8 @@ ENV PIG_CLASSPATH $HCAT_HOME/share/hcatalog/hive-hcatalog-core*.jar:$HCAT_HOME/s
 
 USER root
 
-RUN apt install -y \
+RUN apt update; \
+    apt install -y \
     openjdk-8-jdk; \
     \
     # change java version
